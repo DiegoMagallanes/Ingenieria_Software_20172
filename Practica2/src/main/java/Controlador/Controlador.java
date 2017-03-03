@@ -9,6 +9,7 @@ import Mapeo.Persona;
 import Mapeo.User;
 import Modelo.PersonaDAO;
 import Modelo.UserDAO;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -87,6 +88,18 @@ public class Controlador {
         return new ModelAndView("registrar",model);
     }
     
+    @RequestMapping(value="/iniciarSesion", method = RequestMethod.GET)
+    public ModelAndView iniciarSesion(ModelMap model,HttpServletRequest request){
+        String nombre = request.getParameter("email");
+        Persona p = persona.getPersona(nombre);
+        
+        String info = "";
+        if(p == null)
+            return new ModelAndView("error", model);
+        else
+            return new ModelAndView("persona",model);
+    }
+    
     @RequestMapping(value = "/registrarPersona", method = RequestMethod.POST)
     public ModelAndView registrarPersona(ModelMap model,HttpServletRequest request){
         Persona p  = new Persona();
@@ -99,6 +112,10 @@ public class Controlador {
         String years = request.getParameter("years");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        int dd = Integer.parseInt(days);
+        int mm = Integer.parseInt(months);
+        int yyyy = Integer.parseInt(years);
+        Date d = new Date(yyyy, mm, dd);
         
         model.addAttribute("name", name);
         model.addAttribute("carreer", carreer);
@@ -108,22 +125,23 @@ public class Controlador {
         model.addAttribute("email", email);
         model.addAttribute("password", password);
         
-        p.set_Nombre(name);
-        p.set_Fecha_Nac(days + "/" + months + "/" + years);
-        p.set_Carrera(carreer);
+        p.setNombre(name);
+        p.setFecha_Nac(d);
+        p.setCarrera(carreer);
         
-        persona.guardar(p);
+        persona.insertar(name, d, carreer);
+        //persona.guardar(p);
         
-        u.set_Correo(email);
-        u.set_Password(password);
-        u.set_Persona_Id(p);
+        u.setCorreo(email);
+        u.setPassword(password);
+        u.setPersona_id(p);
         
         user.guardar(u);
         
         
-        
         String ver_email = request.getParameter("email");
-        Persona ver_p = persona.getPersona(ver_email);
+        String ver_nombre = request.getParameter("name");
+        Persona ver_p = persona.getPersona(ver_nombre);
         User ver_u = user.getUser(ver_email);
         
         String info = "";
