@@ -11,7 +11,7 @@
         <title>Bienvenido</title>
     </head>
     <body>
-        <hi>Bienvenido</hi>
+        <h1>Bienvenido</h1>
         <h1>
             <br>
             ${email}
