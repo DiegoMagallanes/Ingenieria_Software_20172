@@ -49,6 +49,8 @@ public class Controlador {
             model.addAttribute("persona", p);
         }
         
+        model.addAttribute("email", nombre);
+        
         return new ModelAndView("persona", model);
     }
     
@@ -113,8 +115,8 @@ public class Controlador {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         int dd = Integer.parseInt(days);
-        int mm = Integer.parseInt(months);
-        int yyyy = Integer.parseInt(years);
+        int mm = Integer.parseInt(months) - 1;
+        int yyyy = Integer.parseInt(years) - 1900;
         Date d = new Date(yyyy, mm, dd);
         
         model.addAttribute("name", name);
@@ -129,8 +131,7 @@ public class Controlador {
         p.setFecha_Nac(d);
         p.setCarrera(carreer);
         
-        persona.insertar(name, d, carreer);
-        //persona.guardar(p);
+        persona.guardar(p);
         
         u.setCorreo(email);
         u.setPassword(password);
