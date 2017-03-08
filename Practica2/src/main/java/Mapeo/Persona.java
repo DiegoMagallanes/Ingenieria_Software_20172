@@ -72,5 +72,6 @@ public class Persona {
     public void setCarrera(String carrera) {
         this.carrera = carrera;
     }
+    
 
 }
