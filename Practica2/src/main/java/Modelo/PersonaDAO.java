@@ -27,6 +27,10 @@ public class PersonaDAO {
     }
     
     
+    /**
+     * Agrega a una Persona de la base de datos.
+     * @param persona
+     */
     public void guardar(Persona persona) {
     
         Session session = sessionFactory.openSession();
@@ -48,7 +52,7 @@ public class PersonaDAO {
     }
     
     /**
-     * Actualiza a un User de la base de datos.
+     * Actualiza a una Persona de la base de datos.
      * @param persona
      */
     public void actualizar(Persona persona) {
@@ -73,7 +77,7 @@ public class PersonaDAO {
     }
     
     /**
-     * Elimina a un User de la base de datos.
+     * Elimina a una Persona de la base de datos.
      * @param persona
      */
     public void eliminar(Persona persona) {
@@ -120,25 +124,5 @@ public class PersonaDAO {
            session.close();
         }
         return persona;
-    }
-    
-    public void insertar(String nombre, Date fechanac, String carrera) {
-        Persona persona = null;
-        Session session = sessionFactory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            String hql = "INSERT INTO persona (nombre, fechanac, carrera) VALUES ("+nombre+","+fechanac+","+carrera+");";
-            Query query = session.createQuery(hql);
-            tx.commit();
-        }
-        catch (Exception e) {
-           if (tx!=null){ 
-               tx.rollback();
-           }
-           e.printStackTrace(); 
-        }finally {
-           session.close();
-        }
     }
 }
