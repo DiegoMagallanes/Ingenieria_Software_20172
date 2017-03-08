@@ -20,10 +20,12 @@
             <br><br>
             ${carreer}
             <br><br>
+        </h1>
             <h2>Fecha de nacimiento:</h2>
-            ${days}
-            ${months}
-            ${years}
+        <h1>
+            ${days} /
+            ${months} /
+            ${years} /
             <br><br>
             ${email}
             <br><br>
