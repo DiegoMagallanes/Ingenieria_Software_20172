@@ -35,7 +35,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL) //mappedBy = "id_persona" 
     @JoinColumn(name = "idpersona")
     private Persona persona_id;
 
@@ -70,6 +70,4 @@ public class User {
     public void setPersona_id(Persona persona_id) {
         this.persona_id = persona_id;
     }
-
-    
 }
